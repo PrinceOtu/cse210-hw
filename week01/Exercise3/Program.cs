@@ -4,35 +4,50 @@ class Program
 {
     static void Main(string[] args)
     {
-         // For Parts 1 and 2, where the user specified the number...
-        // Console.Write("What is the magic number? ");
-        // int magicNumber = int.Parse(Console.ReadLine());
-        
-        // For Part 3, where we use a random number
-        Random randomGenerator = new Random();
-        int magicNumber = randomGenerator.Next(1, 101);
+        string playAgain;
 
-        int guess = -1;
-
-        // We could also use a do-while loop here...
-        while (guess != magicNumber)
+        do
         {
-            Console.Write("What is your guess? ");
-            guess = int.Parse(Console.ReadLine());
+            // Step 1: Generate a random magic number between 1 and 100
+            Random random = new Random();
+            int magicNumber = random.Next(1, 101);
 
-            if (magicNumber > guess)
+            int guess;
+            int guessCount = 0;
+            bool isCorrect = false;
+
+            Console.WriteLine("Welcome to 'Guess My Number'!");
+            Console.WriteLine("I have picked a magic number between 1 and 100. Try to guess it.");
+
+            // Step 2: Loop until the user guesses the magic number
+            while (!isCorrect)
             {
-                Console.WriteLine("Higher");
-            }
-            else if (magicNumber < guess)
-            {
-                Console.WriteLine("Lower");
-            }
-            else
-            {
-                Console.WriteLine("You guessed it!");
+                Console.Write("What is your guess? ");
+                guess = int.Parse(Console.ReadLine());
+                guessCount++;
+
+                if (guess < magicNumber)
+                {
+                    Console.WriteLine("Higher");
+                }
+                else if (guess > magicNumber)
+                {
+                    Console.WriteLine("Lower");
+                }
+                else
+                {
+                    Console.WriteLine("You guessed it!");
+                    Console.WriteLine($"It took you {guessCount} guesses.");
+                    isCorrect = true;
+                }
             }
 
-        }                    
+            // Step 3: Ask if the user wants to play again
+            Console.Write("Do you want to play again? (yes/no): ");
+            playAgain = Console.ReadLine().ToLower();
+
+        } while (playAgain == "yes");
+
+        Console.WriteLine("Thanks for playing! Goodbye.");
     }
 }
